@@ -1,0 +1,4 @@
+syn keyword CTagsMember used secondIndex firstIndex key
+syn keyword CTagsFunction findHash hashFunc addToHashTable
+syn keyword CTagsType hashNode
+

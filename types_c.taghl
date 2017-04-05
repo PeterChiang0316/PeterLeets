@@ -1,0 +1,5 @@
+syn keyword CTagsMember used value key
+syn keyword CTagsFunction findHash hashFunc main addToHashTable twoSum
+syn keyword CTagsType hashNode
+syn keyword CTagsDefinedName HASHSIZE
+
