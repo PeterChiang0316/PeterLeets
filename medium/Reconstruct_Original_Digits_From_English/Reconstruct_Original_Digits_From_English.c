@@ -3,14 +3,13 @@
 #include <string.h>
 
 unsigned int idx[10] = {0,2,6,7,8,3,4,5,1,9};
-unsigned int weight[10] = {1,1,1,1,1,1,1,1,1,2};
-unsigned int pivot[10] = {0,1,2,0,2,0,3,0,0,0};
+unsigned int pivot[10] = {0,1,2,0,2,0,3,0,0,1};
 char map[10][6] = { "zero", "two", "six", "seven", "eight", "three", "four", "five", "one", "nine" };
 char* originalDigits(char *s);
 
 int main (void)
 {
-    char s[300] = "thrtwotwotwotwoeethreefourfourfivesevensevensevenninenineninenine";
+    char s[50000] = "thrtwotwotwotwoeethreefourfourfivesevensevensevenninenineninenine";
     char *a = originalDigits(s);
     printf ("a : %s\n", a );
     return 0;
@@ -49,12 +48,13 @@ char* originalDigits(char *s)
         printf("pivot %s, pivot_len = %d\n",map[i],pivot_len);
         //add the number of digit to the result, result should be traversed only once in this for-loop
         //weight means how many same english letter in the pivot 
-        result[idx[i]] = (number[map[i][pivot[i]]-'a']/weight[i] );
-        printf("result[%d] += %d\n", idx[i] ,(number[map[i][pivot[i]]-'a']/weight[i] ));
+        result[idx[i]] = number[map[i][pivot[i]]-'a'];
+        printf("result[%d] += %d\n", idx[i] ,number[map[i][pivot[i]]-'a']);
         
         // below for-loop subtract all the letters of pivot from the letter pool 
         for ( j = 0 ; j < pivot_len ; j ++ )
         {
+            printf("subtract %c from pool with %d\n",map[i][j],result[idx[i]]);
             number[map[i][j]-'a']-= result[idx[i]];
         }
         
@@ -63,14 +63,12 @@ char* originalDigits(char *s)
     k = 0;
     for ( i = 0 ; i < 10 ; i ++ )
     {
-        if ( result[i] > 0 ){
-            for ( j = 0 ; j < result[i] ; j ++ )
-            {
-                c[k++] = i + '0';
-            }
+        for ( j = 0 ; j < result[i] ; j ++ )
+        {
+            c[k++] = i + '0';
         }
     }
-
+    c[k] = '\0';
     return c;
    
 }
