@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <sdlib.h>
+#include <stdlib.h>
 #include <string.h>
 
 int arrayPairSum(int* nums, int numsSize);
