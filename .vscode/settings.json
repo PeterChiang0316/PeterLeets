@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "merge_two_sorted_list.c": "cpp",
+        "tree_traversal.c": "cpp",
+        "house_robber_3.c": "cpp",
+        "ostream": "cpp",
+        "initializer_list": "cpp"
+    }
+}

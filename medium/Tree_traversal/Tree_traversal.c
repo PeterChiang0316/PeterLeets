@@ -12,13 +12,17 @@ int* inorderTraversal(struct TreeNode* root, int* returnSize);
 
 void in_order(struct TreeNode* root, int* returnSize, int *result);
 
+void postorder(struct TreeNode* root, int* returnSize, int* result);
+
 void f(struct TreeNode *a);
 
 void stack_enqueue(struct TreeNode* node);
 struct TreeNode* stack_dequeue(void);
 
+
 struct TreeNode *stack[10000];
 int top;
+int q_head,q_tail;
 int s[10000];
 
 int main(void)
@@ -65,7 +69,7 @@ int* inorderTraversal(struct TreeNode* root, int* returnSize) {
     int *out;
     *returnSize = 0;
     out = (int *)malloc(sizeof(int) * 10000);
-    in_order(root, returnSize,out);
+    postorder(root, returnSize,out);
     return out;
 }
 
@@ -88,7 +92,34 @@ void in_order(struct TreeNode* root, int* returnSize, int *result)
 
 }
 
-
+void postorder(struct TreeNode* root, int* returnSize, int* result)
+{
+    struct TreeNode *ptr;
+    int pop_count[10000];
+    struct TreeNode* cur = root;
+    memset(pop_count,0,sizeof(int)*10000);
+    
+    while (top > -1 || cur)
+    {
+        if(cur){
+            stack_enqueue(cur);
+            cur = cur->left;
+        }
+        else
+        {
+            if( pop_count[top] ) {
+                ptr = stack_dequeue();
+                result[(*returnSize)++] = ptr->val; // don't use this any more.
+            }
+            else{
+                cur = stack[top];
+                pop_count[top]++;
+                cur = cur->right;
+            }
+            
+        }
+    }
+}
 
 
 /*
@@ -155,3 +186,4 @@ struct TreeNode* stack_dequeue()
 {
     return stack[top--];
 }
+
